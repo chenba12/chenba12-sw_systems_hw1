@@ -14,6 +14,7 @@ recursived:libclassrec.so
 
 loopd: libclassloops.so
 
+
 libclassloops.a: basicClassification.o advancedClassificationLoop.o
 	ar -rc libclassloops.a basicClassification.o advancedClassificationLoop.o
 
@@ -28,13 +29,13 @@ libclassloops.so: basicClassification.o advancedClassificationLoop.o
 	$(CC) $(CFLAGS) -fPIC -c basicClassification.c advancedClassificationLoop.c
 	$(CC) $(CFLAGS) -shared basicClassification.o advancedClassificationLoop.o -o libclassloops.so
 
-mains : main.o recursives
+mains : main.o libclassrec.a
 	$(CC) $(CFLAGS) main.o ./libclassrec.a -L. -o mains
 
-maindloop : main.o loopd
+maindloop : main.o libclassloops.so
 	$(CC) $(CFLAGS) main.o -L. ./libclassloops.so -o maindloop
 
-maindrec: main.o recursived
+maindrec: main.o libclassrec.so
 	$(CC) $(CFLAGS) main.o -L. ./libclassrec.so -o maindrec
 
 clean:
