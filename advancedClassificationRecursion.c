@@ -1,4 +1,3 @@
-#include "NumClass.h"
 
 int reverse(int num1, int num2);
 
