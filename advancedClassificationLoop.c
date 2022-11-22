@@ -1,4 +1,3 @@
-#include "NumClass.h"
 
 int power(int a, int b);
 
