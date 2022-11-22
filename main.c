@@ -5,9 +5,8 @@ int main() {
     int num1, num2;
     scanf("%d", &num1);
     scanf("%d", &num2);
-    printf("num1=%d num2=%d \n", num1, num2);
+    
     printf("The Armstrong numbers are: ");
-
     for (int i = num1; i <= num2; i++) {
         if (isArmStrong(i)) printf("%d ", i);
     }
