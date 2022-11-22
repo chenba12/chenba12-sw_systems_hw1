@@ -1,22 +1,27 @@
 #include "NumClass.h"
 
-int reverse(int x);
+int reverse(int num1, int num2);
+
+int countDigits(int x);
 
 int power(int a, int b);
 
 int isPalindrome(int x) {
-    if (x == reverse(x)) {
+    if (x == reverse(x, 0)) {
         return 1;
     }
     return 0;
 }
 
 
-int reverse(int x) {
-    int digit = x % 10;
-    if (x == 0)
-        return 0;
-    return (int) ((x % 10 * power(10, digit)) + reverse(x / 10));
+int reverse(int x, int y) {
+    if (x == 0) {
+        return y;
+    }
+    y = y * 10;
+    y += (x % 10);
+    x = x / 10;
+    return reverse(x, y);
 }
 
 int power(int a, int b) {
