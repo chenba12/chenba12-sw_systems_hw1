@@ -4,32 +4,41 @@ ALL = recursived loopd loops recursives mains maindloop maindrec
 
 all: $(ALL)
 
-loops: basicClassification.o advancedClassificationLoop.o
+.PHONY: all recursived loopd loops recursives clean
+
+loops: libclassloops.a
+
+recursives: libclassrec.a
+
+recursived:libclassrec.so
+
+loopd: libclassloops.so
+
+libclassloops.a: basicClassification.o advancedClassificationLoop.o
 	ar -rc libclassloops.a basicClassification.o advancedClassificationLoop.o
 
-recursives : basicClassification.o advancedClassificationRecursion.o
+libclassrec.a : basicClassification.o advancedClassificationRecursion.o
 	ar -rc libclassrec.a basicClassification.o advancedClassificationRecursion.o
 
-recursived : basicClassification.c advancedClassificationRecursion.c
+libclassrec.so: basicClassification.o advancedClassificationRecursion.o
 	$(CC) $(CFLAGS) -fPIC -c basicClassification.c advancedClassificationRecursion.c
 	$(CC) $(CFLAGS) -shared basicClassification.o advancedClassificationRecursion.o -o libclassrec.so
-	export LD_LIBRARY_PATH=.:$$LD_LIBRARY_PATH
 
-loopd: basicClassification.c advancedClassificationLoop.c
+libclassloops.so: basicClassification.o advancedClassificationLoop.o
 	$(CC) $(CFLAGS) -fPIC -c basicClassification.c advancedClassificationLoop.c
 	$(CC) $(CFLAGS) -shared basicClassification.o advancedClassificationLoop.o -o libclassloops.so
-	export LD_LIBRARY_PATH=.:$$LD_LIBRARY_PATH
 
-mains : main.o libclassrec.a
+mains : main.o recursives
 	$(CC) $(CFLAGS) main.o ./libclassrec.a -L. -o mains
 
-maindloop : main.o libclassloops.so
+maindloop : main.o loopd
 	$(CC) $(CFLAGS) main.o -L. ./libclassloops.so -o maindloop
 
-maindrec: main.o libclassrec.so
+maindrec: main.o recursived
 	$(CC) $(CFLAGS) main.o -L. ./libclassrec.so -o maindrec
 
 clean:
 	rm mains maindrec maindloop *.so *.o *.a
+
 
 
