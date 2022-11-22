@@ -1,5 +1,3 @@
-#include "NumClass.h"
-
 long factorial(long x) {
     long fact = 1;
     for (int i = 1; i <= x; i++) {
