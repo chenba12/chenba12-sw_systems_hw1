@@ -29,13 +29,13 @@ libclassloops.so: basicClassification.c advancedClassificationLoop.c
 	$(CC) $(CFLAGS) -fPIC -c basicClassification.c advancedClassificationLoop.c
 	$(CC) $(CFLAGS) -shared basicClassification.o advancedClassificationLoop.o -o libclassloops.so
 
-mains : main.o libclassrec.a
+mains : main.o libclassrec.a NumClass.h
 	$(CC) $(CFLAGS) main.o ./libclassrec.a -L. -o mains
 
-maindloop : main.o libclassloops.so
+maindloop : main.o libclassloops.so NumClass.h
 	$(CC) $(CFLAGS) main.o -L. ./libclassloops.so -o maindloop
 
-maindrec: main.o libclassrec.so
+maindrec: main.o libclassrec.so NumClass.h
 	$(CC) $(CFLAGS) main.o -L. ./libclassrec.so -o maindrec
 
 clean:
