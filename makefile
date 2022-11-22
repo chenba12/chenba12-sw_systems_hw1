@@ -21,11 +21,11 @@ libclassloops.a: basicClassification.o advancedClassificationLoop.o
 libclassrec.a : basicClassification.o advancedClassificationRecursion.o
 	ar -rc libclassrec.a basicClassification.o advancedClassificationRecursion.o
 
-libclassrec.so: basicClassification.o advancedClassificationRecursion.o
+libclassrec.so: basicClassification.c advancedClassificationRecursion.c
 	$(CC) $(CFLAGS) -fPIC -c basicClassification.c advancedClassificationRecursion.c
 	$(CC) $(CFLAGS) -shared basicClassification.o advancedClassificationRecursion.o -o libclassrec.so
 
-libclassloops.so: basicClassification.o advancedClassificationLoop.o
+libclassloops.so: basicClassification.c advancedClassificationLoop.c
 	$(CC) $(CFLAGS) -fPIC -c basicClassification.c advancedClassificationLoop.c
 	$(CC) $(CFLAGS) -shared basicClassification.o advancedClassificationLoop.o -o libclassloops.so
 
